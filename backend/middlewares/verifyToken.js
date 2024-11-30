@@ -20,4 +20,6 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+// Bearer "token"
+
 module.exports = verifyToken;

@@ -1,3 +1,15 @@
+# How to start the App
+
+## Go to the Directory
+`npm install`
+`npm run run:dev`
+
+## Create .env file contains
+PORT=4000
+URI=[YOUR MONGO URI]
+JWT_SECRET_KEY=[You key]
+JWT_EXPIRATION_TIME=[TIME YOU WANT]
+
 # API Documentation
 
 ## Base URL

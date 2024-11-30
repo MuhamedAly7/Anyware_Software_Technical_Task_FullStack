@@ -16,9 +16,6 @@ function Sidebar() {
         <li>
           <Link to="/route4">Gradebook</Link>
         </li>
-        <li>
-          <Link to="/addAnnouncement">Announcements</Link>
-        </li>
       </ul>
     </aside>
   );

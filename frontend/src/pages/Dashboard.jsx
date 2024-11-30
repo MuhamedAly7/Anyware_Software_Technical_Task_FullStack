@@ -47,7 +47,7 @@ function Dashboard() {
     // return () => {
     //   dispatch(reset());
     // };
-  }, [user, navigate]);
+  }, [user, navigate, dispatch]);
 
   if (isLoading) {
     return <Spinner />;
