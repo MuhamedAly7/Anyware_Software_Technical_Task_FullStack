@@ -7,7 +7,7 @@ const userRoles = require("../utils/userRoles");
 
 const getDues = asyncWrapper(async (req, res, next) => {
   const dues = await Due.find({ isDeleted: false }, { _v: false });
-  res.json({ status: httpStatusText.SUCCESS, data: { dues } });
+  res.json({ status: httpStatusText.SUCCESS, data: dues });
 });
 
 const getDeletedDues = asyncWrapper(async (req, res, next) => {
@@ -112,6 +112,7 @@ const softDeleteDue = asyncWrapper(async (req, res, next) => {
   return res.status(200).json({
     status: httpStatusText.SUCCESS,
     data: null,
+      id: req.params.id
   });
 });
 

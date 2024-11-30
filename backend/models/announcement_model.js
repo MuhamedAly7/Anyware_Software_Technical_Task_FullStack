@@ -8,6 +8,7 @@ const announcementSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    creatorName: { type: String },
     isDeleted: { type: Boolean, default: false },
     deletedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     deletedAt: Date,

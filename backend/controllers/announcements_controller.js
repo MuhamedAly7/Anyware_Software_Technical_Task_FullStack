@@ -12,7 +12,7 @@ const getAnnouncements = asyncWrapper(async (req, res, next) => {
     { _v: false }
   );
 
-  res.json({ status: httpStatusText.SUCCESS, data: { announcements } });
+  res.json({ status: httpStatusText.SUCCESS, data: announcements });
 });
 
 const getDeletedAnnouncements = asyncWrapper(async (req, res, next) => {
@@ -51,7 +51,11 @@ const createAnnouncement = asyncWrapper(async (req, res, next) => {
   const currentUserRole = req.currentUser.role;
 
   // Decode jwt data
-  const announcementData = { ...req.body, creator: req.currentUser.id };
+  const announcementData = {
+    ...req.body,
+    creator: req.currentUser.id,
+    creatorName: req.currentUser.name,
+  };
 
   const newAnnouncement = new Announcement(announcementData);
   await newAnnouncement.save();
@@ -132,6 +136,7 @@ const softDeleteAnnouncement = asyncWrapper(async (req, res, next) => {
   return res.status(200).json({
     status: httpStatusText.SUCCESS,
     data: null,
+      id: req.params.id
   });
 });
 

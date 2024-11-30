@@ -20,16 +20,19 @@ const userSignup = asyncWrapper(async (req, res, next) => {
 
   // Generate JWT token
   const token = await generateJWTToken(
-    { username: newUser.username, id: newUser._id },
+    {
+      id: newUser._id,
+      name: newUser.name,
+      username: newUser.username,
+      role: newUser.role,
+    },
     process.env.JWT_SECRET_KEY,
     { expiresIn: "2m" }
   );
   newUser.token = token;
   await newUser.save();
 
-  res
-    .status(201)
-    .json({ status: httpStatusText.SUCCESS, data: { user: newUser } });
+  res.status(201).json({ status: httpStatusText.SUCCESS, data: newUser });
 });
 
 const userLogin = asyncWrapper(async (req, res, next) => {
@@ -51,13 +54,24 @@ const userLogin = asyncWrapper(async (req, res, next) => {
   if (user && matchedPassword) {
     // Logged In Successfully
     const token = await generateJWTToken(
-      { username: user.username, id: user._id, role: user.role },
+      {
+        id: user._id,
+        name: user.name,
+        username: user.username,
+        role: user.role,
+      },
       process.env.JWT_SECRET_KEY,
       { expiresIn: "2m" }
     );
     return res.json({
       status: httpStatusText.SUCCESS,
-      data: { token: token },
+      data: {
+        id: user._id,
+        name: user.name,
+        username: user.username,
+        role: user.role,
+        token: token,
+      },
     });
   } else {
     const err = appError.make(

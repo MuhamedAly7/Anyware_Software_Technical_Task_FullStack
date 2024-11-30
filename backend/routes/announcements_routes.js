@@ -33,7 +33,7 @@ announcementsRouter.get(
 announcementsRouter.patch(
   "/:id/update",
   verifyToken,
-  allowedTo(userRoles.instructor),
+  allowedTo(userRoles.instructor, userRoles.admin),
   announcementsController.updateAnnouncement
 );
 
