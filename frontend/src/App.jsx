@@ -9,6 +9,8 @@ import AnnouncementForm from "./pages/AnnouncementForm";
 import DueForm from "./pages/DueForm";
 import NotFound from "./pages/NotFound";
 import { useSelector } from "react-redux";
+import AnnouncementUpdateForm from "./pages/AnnouncementUpdateForm";
+import DueUpdateForm from "./pages/DueUpdateForm";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -26,6 +28,16 @@ function App() {
             )}
             {user?.data?.role !== "student" && user?.data.role !== "admin" && (
               <Route path="/addDue" element={<DueForm />} />
+            )}
+
+            {user?.data?.role !== "student" && (
+              <Route
+                path="/updateAnnouncement"
+                element={<AnnouncementUpdateForm />}
+              />
+            )}
+            {user?.data?.role !== "student" && user?.data.role !== "admin" && (
+              <Route path="/updateDue" element={<DueUpdateForm />} />
             )}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -41,10 +41,32 @@ const deleteDue = async (id, token) => {
   );
   return response.data;
 };
+
+const updateDue = async (dueData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  // console.log(dueData);
+  // return;
+  const { id, dueType, dueTopic, dueTitle, dueDate, dueCourse } = dueData;
+
+  const response = await axios.patch(
+    API_URL + `/dues/${id}/update`,
+    { dueType, dueTopic, dueTitle, dueDate, dueCourse },
+    config
+  );
+  // console.log(response.data);
+  return response.data;
+};
+
 const dueService = {
   addDue,
   getDues,
   deleteDue,
+  updateDue,
 };
 
 export default dueService;

@@ -73,6 +73,35 @@ export const deleteAnnouncement = createAsyncThunk(
   }
 );
 
+// Update Announcement
+export const updateAnnouncement = createAsyncThunk(
+  "announcement/update",
+  async (announcementData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.data.token;
+      // console.log(token);
+      // console.log(announcementData);
+      // return;
+
+      const updatedData = {
+        id: announcementData.id,
+        topic: announcementData.updatedTopic,
+        description: announcementData.updatedDescription,
+      };
+      return await announcementService.updateAnnouncement(updatedData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message &&
+          error.responce.msg) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const announcementSlice = createSlice({
   name: "announcement",
   initialState,
@@ -118,6 +147,23 @@ export const announcementSlice = createSlice({
         );
       })
       .addCase(deleteAnnouncement.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(updateAnnouncement.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateAnnouncement.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.announcements = state.announcements.map((announcement) =>
+          announcement._id === action.payload._id
+            ? action.payload
+            : announcement
+        );
+      })
+      .addCase(updateAnnouncement.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

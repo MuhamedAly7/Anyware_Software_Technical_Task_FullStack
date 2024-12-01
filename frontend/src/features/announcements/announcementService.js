@@ -44,10 +44,32 @@ const deleteAnnouncement = async (id, token) => {
   return response.data;
 };
 
+const updateAnnouncement = async (announcementData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const { id, topic, description } = announcementData;
+  console.log(token);
+  console.log(id);
+  console.log(topic);
+  console.log(description);
+
+  const response = await axios.patch(
+    API_URL + `/announcements/${id}/update`,
+    { topic, description },
+    config
+  );
+  return response.data;
+};
+
 const announcementService = {
   addAnnouncement,
   getAnnouncements,
   deleteAnnouncement,
+  updateAnnouncement,
 };
 
 export default announcementService;

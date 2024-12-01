@@ -1,15 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAnnouncement } from "../features/announcements/announcementSlice";
 import { useNavigate } from "react-router-dom";
-function AnnouncementItem({
-  id,
-  creator,
-  topic,
-  description,
-  creatorName,
-  onUpdate,
-  onDelete,
-}) {
+function AnnouncementItem({ id, creator, topic, description, creatorName }) {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +21,13 @@ function AnnouncementItem({
       </div>
       <div className="announcement-actions">
         {user?.data?.id === creator && (
-          <button className="btn-update" onClick={onUpdate}>
+          <button
+            className="btn-update"
+            onClick={() => {
+              const props = { id: id, topic: topic, description: description };
+              navigate("/updateAnnouncement", { state: props });
+            }}
+          >
             Update
           </button>
         )}

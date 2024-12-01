@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteDue } from "../features/dues/dueSlice";
+import { useNavigate } from "react-router-dom";
 
 const DueItem = ({
   id,
@@ -8,10 +9,11 @@ const DueItem = ({
   dueTopic,
   dueType,
   dueDate,
-  onUpdate,
+  dueCourse,
 }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const getDueIcon = () => {
     if (dueType === "quiz") {
       return "📋";
@@ -35,7 +37,20 @@ const DueItem = ({
       </div>
       <div className="due-actions">
         {user?.data?.id === instructor && (
-          <button className="btn-update" onClick={onUpdate}>
+          <button
+            className="btn-update"
+            onClick={() => {
+              const props = {
+                id: id,
+                dueTitle: dueTitle,
+                dueTopic: dueTopic,
+                dueType: dueType,
+                dueDate: dueDate,
+                dueCourse: dueCourse,
+              };
+              navigate("/updateDue", { state: props });
+            }}
+          >
             Update
           </button>
         )}

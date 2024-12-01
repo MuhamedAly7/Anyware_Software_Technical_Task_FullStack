@@ -68,6 +68,41 @@ export const deleteDue = createAsyncThunk(
   }
 );
 
+// Update Due
+export const updateDue = createAsyncThunk(
+  "due/update",
+  async (dueData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.data.token;
+      // console.log(token);
+      // return;
+      // console.log(dueData);
+      // return;
+
+      const updatedData = {
+        id: dueData.id,
+        dueType: dueData.UpdatedDueType,
+        dueTopic: dueData.UpdatedDueTopic,
+        dueTitle: dueData.UpdatedDueTitle,
+        dueDate: dueData.UpdatedDueDate,
+        dueCourse: dueData.UpdatedDueCourse,
+      };
+
+
+      return await dueService.updateDue(updatedData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message &&
+          error.responce.msg) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const dueSlice = createSlice({
   name: "due",
   initialState,
@@ -111,6 +146,21 @@ export const dueSlice = createSlice({
         state.dues = state.dues.filter((due) => due._id !== action.payload.id);
       })
       .addCase(deleteDue.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(updateDue.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateDue.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.dues = state.dues.map((due) =>
+          due._id === action.payload._id ? action.payload : due
+        );
+      })
+      .addCase(updateDue.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

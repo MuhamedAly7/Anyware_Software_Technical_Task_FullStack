@@ -103,6 +103,7 @@ function Dashboard() {
                     dueTopic={due.dueTopic}
                     dueType={due.dueType}
                     dueDate={due.dueDate}
+                    dueCourse={due.dueCourse}
                     instructor={due.instructor}
                   />
                 ))}
