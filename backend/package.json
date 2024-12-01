@@ -7,6 +7,9 @@
     "run:dev": "nodemon app.js"
   },
   "author": "Mohamed Ali",
+  "engines": {
+    "node": "20.16.0"
+  },
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",

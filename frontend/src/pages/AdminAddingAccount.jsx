@@ -124,7 +124,7 @@ function AdmitAddingAccount() {
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-block">
-              Signup
+              Add New User
             </button>
           </div>
         </form>
