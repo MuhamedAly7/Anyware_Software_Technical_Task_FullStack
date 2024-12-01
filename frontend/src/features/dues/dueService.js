@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:4000/api";
+const API_URL = import.meta.env.VITE_BASE_APIS_URL;
 
 const addDue = async (dueData, token) => {
   const config = {
@@ -9,7 +9,7 @@ const addDue = async (dueData, token) => {
     },
   };
 
-  const response = await axios.post(API_URL + "/dues", dueData, config);
+  const response = await axios.post(API_URL + "/api/dues", dueData, config);
   // console.log(response.data);
   return response.data;
 };
@@ -21,7 +21,7 @@ const getDues = async (token) => {
     },
   };
 
-  const response = await axios.get(API_URL + "/dues", config);
+  const response = await axios.get(API_URL + "/api/dues", config);
   // console.log(response.data);
   return response.data;
 };
@@ -35,7 +35,7 @@ const deleteDue = async (id, token) => {
   console.log(token);
   console.log(id);
   const response = await axios.patch(
-    API_URL + `/dues/${id}/soft_delete`,
+    API_URL + `/api/dues/${id}/soft_delete`,
     "",
     config
   );
@@ -54,7 +54,7 @@ const updateDue = async (dueData, token) => {
   const { id, dueType, dueTopic, dueTitle, dueDate, dueCourse } = dueData;
 
   const response = await axios.patch(
-    API_URL + `/dues/${id}/update`,
+    API_URL + `/api/dues/${id}/update`,
     { dueType, dueTopic, dueTitle, dueDate, dueCourse },
     config
   );

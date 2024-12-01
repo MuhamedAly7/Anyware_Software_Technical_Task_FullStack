@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:4000/api";
+const API_URL = import.meta.env.VITE_BASE_APIS_URL;
 
 const addAnnouncement = async (announcementData, token) => {
   const config = {
@@ -10,7 +10,7 @@ const addAnnouncement = async (announcementData, token) => {
   };
 
   const response = await axios.post(
-    API_URL + "/announcements",
+    API_URL + "/api/announcements",
     announcementData,
     config
   );
@@ -24,7 +24,7 @@ const getAnnouncements = async (token) => {
     },
   };
 
-  const response = await axios.get(API_URL + "/announcements", config);
+  const response = await axios.get(API_URL + "/api/announcements", config);
   return response.data;
 };
 
@@ -37,7 +37,7 @@ const deleteAnnouncement = async (id, token) => {
   console.log(token);
   console.log(id);
   const response = await axios.patch(
-    API_URL + `/announcements/${id}/soft_delete`,
+    API_URL + `/api/announcements/${id}/soft_delete`,
     "",
     config
   );
@@ -58,7 +58,7 @@ const updateAnnouncement = async (announcementData, token) => {
   console.log(description);
 
   const response = await axios.patch(
-    API_URL + `/announcements/${id}/update`,
+    API_URL + `/api/announcements/${id}/update`,
     { topic, description },
     config
   );
