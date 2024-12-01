@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
+  const { user } = useSelector((state) => state.auth);
   return (
     <aside className="sidebar">
       <ul>
@@ -8,7 +10,9 @@ function Sidebar() {
           <Link to="/">Dashboard</Link>
         </li>
         <li>
-          <Link to="/route2">Schedule</Link>
+          {user?.data?.role === "admin" && (
+            <Link to="/accountAdd">Add account</Link>
+          )}
         </li>
         <li>
           <Link to="/route3">Courses</Link>

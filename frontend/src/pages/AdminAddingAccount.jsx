@@ -6,33 +6,22 @@ import { FaUser } from "react-icons/fa";
 import { signup, reset } from "../features/auth/authSlice";
 import Spinner from "../components/Spinner";
 
-function Signup() {
+function AdmitAddingAccount() {
   const [formData, setFormData] = useState({
     name: "",
     username: "",
     password: "",
     password_conformation: "",
-    // role: "student",
+    role: "student",
   });
 
-  const { name, username, password, password_confirmation } = formData;
+  const { name, username, password, password_confirmation, role } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-    if (isSuccess || user) {
-      navigate("/");
-    }
-
-    dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -49,15 +38,18 @@ function Signup() {
     }
     if (password !== password_confirmation) {
       toast.error("Password to not match!");
+    } else if (!["student", "instructor"].includes(role)) {
+      toast.error("Not supported role!");
     } else {
       const userData = {
         name,
         username,
         password,
         password_confirmation,
-        // role,
+        role,
       };
       dispatch(signup(userData));
+      navigate("/");
     }
   };
 
@@ -118,7 +110,7 @@ function Signup() {
               onChange={onChange}
             />
           </div>
-          {/* <div className="form-group">
+          <div className="form-group">
             <label htmlFor="text">type (student/instructor)</label>
             <input
               type="text"
@@ -129,7 +121,7 @@ function Signup() {
               placeholder="Role"
               onChange={onChange}
             />
-          </div> */}
+          </div>
           <div className="form-group">
             <button type="submit" className="btn btn-block">
               Signup
@@ -141,4 +133,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default AdmitAddingAccount;

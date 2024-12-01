@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import { useSelector } from "react-redux";
 import AnnouncementUpdateForm from "./pages/AnnouncementUpdateForm";
 import DueUpdateForm from "./pages/DueUpdateForm";
+import AdmitAddingAccount from "./pages/AdminAddingAccount";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -39,6 +40,11 @@ function App() {
             {user?.data?.role !== "student" && user?.data.role !== "admin" && (
               <Route path="/updateDue" element={<DueUpdateForm />} />
             )}
+
+            {user?.data?.role === "admin" && (
+              <Route path="/accountAdd" element={<AdmitAddingAccount />} />
+            )}
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
