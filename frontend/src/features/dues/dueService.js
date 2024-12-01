@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_BASE_APIS_URL;
+const API_URL =
+  "https://anyware-software-technical-task-full-stack.vercel.app";
 
 const addDue = async (dueData, token) => {
   const config = {
