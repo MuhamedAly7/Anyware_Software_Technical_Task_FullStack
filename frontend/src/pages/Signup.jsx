@@ -12,9 +12,10 @@ function Signup() {
     username: "",
     password: "",
     password_conformation: "",
+    role: "student",
   });
 
-  const { name, username, password, password_confirmation } = formData;
+  const { name, username, password, password_confirmation, role } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -48,8 +49,16 @@ function Signup() {
     }
     if (password !== password_confirmation) {
       toast.error("Password to not match!");
+    } else if (!["student", "instructor"].includes(role)) {
+      toast.error("Not supported role!");
     } else {
-      const userData = { name, username, password, password_confirmation };
+      const userData = {
+        name,
+        username,
+        password,
+        password_confirmation,
+        role,
+      };
       dispatch(signup(userData));
     }
   };
@@ -108,6 +117,18 @@ function Signup() {
               name="password_confirmation"
               value={password_confirmation}
               placeholder="password confirmation"
+              onChange={onChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="text">type (student/instructor)</label>
+            <input
+              type="text"
+              className="form-control"
+              id="role"
+              name="role"
+              value={role}
+              placeholder="Role"
               onChange={onChange}
             />
           </div>
