@@ -15,14 +15,7 @@ const port = process.env.PORT;
 const DB_URI = process.env.URI;
 connectTo(DB_URI);
 
-const corsOptions = {
-  origin: [
-    "https://anyware-software-technical-task-full-stack-cbg8.vercel.app/",
-  ],
-  optionsSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use("/api/announcements", announcementsRouter);
 app.use("/api/auth", userRouter);
 app.use("/api/dues", dueRouter);
