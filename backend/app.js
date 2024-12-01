@@ -16,7 +16,9 @@ const DB_URI = process.env.URI;
 connectTo(DB_URI);
 
 const corsOptions = {
-  origin: ["http://localhost:3000"],
+  origin: [
+    "https://anyware-software-technical-task-full-stack-cbg8.vercel.app/",
+  ],
   optionsSuccessStatus: 200,
 };
 
