@@ -15,7 +15,13 @@ const port = process.env.PORT;
 const DB_URI = process.env.URI;
 connectTo(DB_URI);
 
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 app.use("/api/announcements", announcementsRouter);
 app.use("/api/auth", userRouter);
 app.use("/api/dues", dueRouter);
