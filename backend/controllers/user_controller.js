@@ -61,7 +61,7 @@ const userLogin = asyncWrapper(async (req, res, next) => {
         role: user.role,
       },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: "2m" }
+      { expiresIn: process.env.JWT_EXPIRATION_TIME }
     );
     return res.json({
       status: httpStatusText.SUCCESS,

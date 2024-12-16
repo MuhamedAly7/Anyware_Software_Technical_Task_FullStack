@@ -34,8 +34,8 @@ const deleteAnnouncement = async (id, token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  console.log(token);
-  console.log(id);
+  // console.log(token);
+  // console.log(id);
   const response = await axios.patch(
     API_URL + `/api/announcements/${id}/soft_delete`,
     "",

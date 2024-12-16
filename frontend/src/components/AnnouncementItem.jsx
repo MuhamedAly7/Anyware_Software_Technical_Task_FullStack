@@ -36,6 +36,8 @@ function AnnouncementItem({ id, creator, topic, description, creatorName }) {
             className="btn-delete"
             onClick={() => {
               dispatch(deleteAnnouncement(id));
+              location.reload();
+              // navigate("/");
             }}
           >
             Delete

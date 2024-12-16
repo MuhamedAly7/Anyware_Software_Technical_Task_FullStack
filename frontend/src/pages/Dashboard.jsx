@@ -15,13 +15,21 @@ function Dashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { announcements, isLoading, isError, message } = useSelector(
-    (state) => state.announcement
-  );
-  const { dues } = useSelector((state) => state.due);
+  const {
+    announcements,
+    isLoading: isLoadingAnnouncements,
+    isError: isErrorAnnouncements,
+    message,
+  } = useSelector((state) => state.announcement);
+
+  const {
+    dues,
+    isError: isErrorDues,
+    isLoading: isLoadingDues,
+  } = useSelector((state) => state.due);
 
   useEffect(() => {
-    if (isError) {
+    if (isErrorAnnouncements || isErrorDues) {
       console.log(message);
     }
 
@@ -49,7 +57,7 @@ function Dashboard() {
     // };
   }, [user, navigate, dispatch]);
 
-  if (isLoading) {
+  if (isLoadingAnnouncements || isLoadingDues) {
     return <Spinner />;
   }
   return (

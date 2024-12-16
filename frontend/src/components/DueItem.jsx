@@ -57,7 +57,10 @@ const DueItem = ({
         {user?.data?.id === instructor || user?.data?.role === "admin" ? (
           <button
             className="btn-delete"
-            onClick={() => dispatch(deleteDue(id))}
+            onClick={() => {
+              dispatch(deleteDue(id));
+              location.reload();
+            }}
           >
             Delete
           </button>

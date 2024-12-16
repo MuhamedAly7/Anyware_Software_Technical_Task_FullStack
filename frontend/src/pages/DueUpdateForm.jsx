@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { addDue, updateDue } from "../features/dues/dueSlice";
+import { updateDue } from "../features/dues/dueSlice";
 import { toast } from "react-toastify";
 
 function DueUpdateForm() {
@@ -120,7 +120,7 @@ function DueUpdateForm() {
           </div>
           <div className="form-group">
             <button className="btn btn-block" type="submit">
-              Add Due
+              Update Due
             </button>
           </div>
         </form>
